@@ -14,7 +14,7 @@ npm install
 
 The app calls the API at the base URL in `src/environments/environment*.ts` (`apiBaseUrl`, default `/api`).
 
-In development, `ng serve` proxies `/api` to the backend using `proxy.conf.json` (default `http://localhost:5000`). Change the `target` there if your backend runs elsewhere. The backend must be running, with its database configured (see `backend/README.md`), for the Todo screens to load data:
+In development, `ng serve` proxies `/api` to the backend using `proxy.conf.json` (default `http://localhost:5000`). Change the `target` there if your backend runs elsewhere. The backend must be running, with its database configured (see `backend/README.md`), once a feature calls it:
 
 ```bash
 dotnet run --project backend/iErp.Api --urls http://localhost:5000

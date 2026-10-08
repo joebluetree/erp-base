@@ -1,36 +1,17 @@
 <h1 class="mb-4 text-2xl font-semibold">Dashboard</h1>
 
-@if (service.loading()) {
-  <hlm-spinner aria-label="Loading todo summary" class="text-2xl" />
-} @else if (service.error()) {
-  <p class="summary-error rounded-md bg-muted p-4 text-sm" role="status">
-    The todo summary could not be loaded right now.
-  </p>
-} @else {
-  <section class="grid grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] gap-4" aria-label="Todo summary">
-    <section hlmCard>
-      <header hlmCardHeader><h2 hlmCardTitle>Todos</h2></header>
-      <div hlmCardContent><p class="text-3xl font-bold" data-testid="total">{{ total() }}</p></div>
-    </section>
-    <section hlmCard>
-      <header hlmCardHeader><h2 hlmCardTitle>Open</h2></header>
-      <div hlmCardContent><p class="text-3xl font-bold" data-testid="open">{{ open() }}</p></div>
-    </section>
-    <section hlmCard>
-      <header hlmCardHeader><h2 hlmCardTitle>Completed</h2></header>
-      <div hlmCardContent><p class="text-3xl font-bold" data-testid="completed">{{ completed() }}</p></div>
-    </section>
-  </section>
-}
+<p class="text-muted-foreground">Welcome to iErp. Use the menu to open a screen.</p>
 
-<h2 class="mb-2 mt-8 text-lg font-semibold">Quick links</h2>
-<ul class="quick-links flex flex-wrap gap-4">
-  @for (link of quickLinks; track link.route) {
-    <li>
-      <a hlmBtn variant="outline" [routerLink]="link.route">
-        <ng-icon [name]="link.icon" aria-hidden="true" />
-        {{ link.label }}
-      </a>
-    </li>
-  }
-</ul>
+@if (quickLinks.length > 0) {
+  <h2 class="mb-2 mt-8 text-lg font-semibold">Quick links</h2>
+  <ul class="quick-links flex flex-wrap gap-4">
+    @for (link of quickLinks; track link.route) {
+      <li>
+        <a hlmBtn variant="outline" [routerLink]="link.route">
+          <ng-icon [name]="link.icon" aria-hidden="true" />
+          {{ link.label }}
+        </a>
+      </li>
+    }
+  </ul>
+}

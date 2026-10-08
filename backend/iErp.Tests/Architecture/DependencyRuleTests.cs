@@ -1,6 +1,6 @@
 using System.Reflection;
 using iErp.Data;
-using iErp.Entities.Todos;
+using iErp.Entities;
 using iErp.ModuleTemplate;
 using iErp.Shared.Exceptions;
 using iErp.SharedBusiness;
@@ -9,7 +9,7 @@ namespace iErp.Tests.Architecture;
 
 public class DependencyRuleTests
 {
-    private static readonly Assembly Entities = typeof(TodoItem).Assembly;
+    private static readonly Assembly Entities = typeof(EntitiesMarker).Assembly;
     private static readonly Assembly Shared = typeof(NotFoundException).Assembly;
     private static readonly Assembly Data = typeof(AppDbContext).Assembly;
     private static readonly Assembly SharedBusiness = typeof(SharedBusinessMarker).Assembly;
@@ -51,5 +51,16 @@ public class DependencyRuleTests
             .That().HaveNameEndingWith("Controller")
             .Should().NotHaveDependencyOn("iErp.Data").GetResult();
         Assert.True(result.IsSuccessful, string.Join(", ", result.FailingTypeNames ?? []));
+    }
+
+    [Fact]
+    public void Product_assemblies_do_not_contain_or_use_test_code()
+    {
+        foreach (var assembly in new[] { typeof(Program).Assembly, Module })
+        {
+            var result = NetArchTest.Rules.Types.InAssembly(assembly)
+                .Should().NotHaveDependencyOn("iErp.Tests").GetResult();
+            Assert.True(result.IsSuccessful, string.Join(", ", result.FailingTypeNames ?? []));
+        }
     }
 }

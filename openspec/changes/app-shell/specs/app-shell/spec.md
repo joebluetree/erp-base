@@ -10,7 +10,7 @@ Defines the frame around every frontend screen: header, sidebar navigation menu 
 Every page SHALL be displayed inside a layout with a header, a sidebar and a content area. The header SHALL show the application name. The content area SHALL display the current page, and the layout SHALL supply the page width and padding so feature pages do not provide their own frame.
 
 #### Scenario: Page inside shell
-- **WHEN** the user opens any page (Dashboard, Todo list, Todo form)
+- **WHEN** the user opens any page
 - **THEN** the header, sidebar and content area are shown and the page appears in the content area
 
 #### Scenario: Notifications unaffected
@@ -22,22 +22,22 @@ Every page SHALL be displayed inside a layout with a header, a sidebar and a con
 - **THEN** it contains no user or account menu
 
 ### Requirement: Navigation menu
-The sidebar SHALL list navigation entries, each with a label, an icon and a destination, taken from one static list. The initial entries SHALL be Dashboard and Todos. The entry matching the current page SHALL be visibly highlighted, and choosing an entry SHALL navigate to its destination. The menu SHALL NOT vary by permissions.
+The sidebar SHALL list navigation entries, each with a label, an icon and a destination, taken from one static list. The initial entry SHALL be Dashboard, and each future module adds its own entry. The entry matching the current page SHALL be visibly highlighted, and choosing an entry SHALL navigate to its destination. The menu SHALL NOT vary by permissions.
 
 #### Scenario: Initial entries
 - **WHEN** the menu is displayed
-- **THEN** it lists Dashboard and Todos, each with an icon
+- **THEN** it lists Dashboard with an icon
 
 #### Scenario: Navigate
-- **WHEN** the user chooses Todos
-- **THEN** the Todo list is shown in the content area
+- **WHEN** the user chooses an entry
+- **THEN** its destination is shown in the content area
 
 #### Scenario: Highlight current entry
-- **WHEN** the user is on the Todo form (a page under Todos)
-- **THEN** the Todos entry is highlighted and Dashboard is not
+- **WHEN** the user is on a page beneath an entry's destination
+- **THEN** that entry is highlighted and Dashboard is not
 
 #### Scenario: Dashboard highlight is exact
-- **WHEN** the user is on the Todo list
+- **WHEN** the user is on any page other than the application root
 - **THEN** the Dashboard entry is not highlighted
 
 #### Scenario: Adding an entry
@@ -75,7 +75,7 @@ The menu entries and the header menu button SHALL be operable with the keyboard 
 - **THEN** it announces a name that describes opening the menu
 
 ### Requirement: Routing inside the shell
-All feature routes SHALL be displayed inside the shell. The root route SHALL show the Dashboard, and a path matching no route SHALL redirect to the Dashboard. The Home page and its route SHALL NOT exist. Existing Todo routes and behavior SHALL be unchanged, and no route guard SHALL be introduced.
+All feature routes SHALL be displayed inside the shell. The root route SHALL show the Dashboard, and a path matching no route SHALL redirect to the Dashboard. The Home page and its route SHALL NOT exist. No route guard SHALL be introduced.
 
 #### Scenario: Root shows Dashboard
 - **WHEN** the user opens the application root
@@ -88,10 +88,6 @@ All feature routes SHALL be displayed inside the shell. The root route SHALL sho
 #### Scenario: Home removed
 - **WHEN** the application is searched for a Home page or Home route
 - **THEN** neither exists
-
-#### Scenario: Todos still work
-- **WHEN** the user lists, creates, edits and deletes a todo inside the shell
-- **THEN** each works as it did before the shell
 
 ### Requirement: Light and dark theme
 The application SHALL provide a light theme and a dark theme, and the header SHALL contain an icon button that switches between them. The button SHALL show the theme the user will switch to, SHALL have an accessible name that states the action, and SHALL be operable with the keyboard. All screens and components SHALL follow the selected theme. The theme SHALL NOT depend on a backend call.
@@ -146,6 +142,6 @@ In the dark theme, normal text SHALL be a softened light gray rather than near-w
 ### Requirement: Shell stays out of feature lazy loading
 The shell and menu SHALL be part of the initial download, and feature code SHALL remain loaded on demand.
 
-#### Scenario: Todo code not in initial download
+#### Scenario: Feature code not in initial download
 - **WHEN** the application first loads
-- **THEN** the Todo feature code is not part of the initial download
+- **THEN** the code of lazy-loaded features is not part of the initial download

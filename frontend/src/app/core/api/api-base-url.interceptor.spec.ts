@@ -18,17 +18,17 @@ describe('apiBaseUrlInterceptor', () => {
 
   it('prefixes relative URLs with the configured base', () => {
     const { http, controller } = setup('/api');
-    http.get('todos').subscribe();
+    http.get('customers').subscribe();
 
-    controller.expectOne('/api/todos').flush([]);
+    controller.expectOne('/api/customers').flush([]);
     controller.verify();
   });
 
   it('changing the base changes every request', () => {
     const { http, controller } = setup('https://erp.example.com/api/');
-    http.get('/todos/1').subscribe();
+    http.get('/customers/1').subscribe();
 
-    controller.expectOne('https://erp.example.com/api/todos/1').flush({});
+    controller.expectOne('https://erp.example.com/api/customers/1').flush({});
     controller.verify();
   });
 

@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { vi } from 'vitest';
+import { NAV_ITEMS, NAV_MENU } from '../core/navigation/nav-items';
 import { AppNav } from './app-nav';
 
 @Component({ template: '' })
@@ -21,10 +22,11 @@ describe('AppNav', () => {
     TestBed.configureTestingModule({
       imports: [Host],
       providers: [
+        { provide: NAV_MENU, useValue: [...NAV_ITEMS, { label: 'Reports', icon: 'lucideHouse', route: '/reports' }] },
         provideRouter([
           { path: '', pathMatch: 'full', component: Blank },
-          { path: 'todos', component: Blank },
-          { path: 'todos/new', component: Blank },
+          { path: 'reports', component: Blank },
+          { path: 'reports/new', component: Blank },
         ]),
       ],
     });
@@ -39,11 +41,11 @@ describe('AppNav', () => {
   const links = (el: HTMLElement) => Array.from(el.querySelectorAll('a'));
   const active = (el: HTMLElement) => links(el).filter((a) => a.classList.contains('active')).map((a) => a.textContent?.trim());
 
-  it('lists Dashboard and Todos with icons and links', async () => {
+  it('lists the menu entries with icons and links', async () => {
     const { el } = await render();
 
-    expect(links(el).map((a) => a.textContent?.trim())).toEqual(['Dashboard', 'Todos']);
-    expect(links(el).map((a) => a.getAttribute('href'))).toEqual(['/', '/todos']);
+    expect(links(el).map((a) => a.textContent?.trim())).toEqual(['Dashboard', 'Reports']);
+    expect(links(el).map((a) => a.getAttribute('href'))).toEqual(['/', '/reports']);
     expect(el.querySelectorAll('a ng-icon')).toHaveLength(2);
   });
 
@@ -59,25 +61,25 @@ describe('AppNav', () => {
     expect(active(el)).toEqual(['Dashboard']);
   });
 
-  it('highlights Todos, not Dashboard, on the Todo list', async () => {
-    const { el } = await render('/todos');
+  it('highlights an entry, not Dashboard, on its page', async () => {
+    const { el } = await render('/reports');
 
-    expect(active(el)).toEqual(['Todos']);
+    expect(active(el)).toEqual(['Reports']);
   });
 
-  it('keeps Todos highlighted on a page under it', async () => {
-    const { el } = await render('/todos/new');
+  it('keeps an entry highlighted on a page under it', async () => {
+    const { el } = await render('/reports/new');
 
-    expect(active(el)).toEqual(['Todos']);
+    expect(active(el)).toEqual(['Reports']);
   });
 
   it('updates the highlight when navigating', async () => {
     const { el, fixture } = await render('/');
 
-    await TestBed.inject(Router).navigateByUrl('/todos');
+    await TestBed.inject(Router).navigateByUrl('/reports');
     fixture.detectChanges();
 
-    expect(active(el)).toEqual(['Todos']);
+    expect(active(el)).toEqual(['Reports']);
   });
 
   it('emits navigated when an entry is chosen', async () => {

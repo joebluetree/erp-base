@@ -5,7 +5,7 @@
 | Field | Value |
 |---|---|
 | **Capability** | `customer-master` |
-| **Current Version** | 1.0 |
+| **Current Version** | 1.1 |
 | **Status** | Approved |
 | **Owner** | joyi john |
 | **Last Updated** | 2026-10-06 |
@@ -27,6 +27,17 @@ everything else here already exists.
 
 ---
 ## Change History
+
+### v1.1 — Remove the Todo reference feature   [Status: Proposed]
+
+- **Date:** 2026-10-08
+- **Change Ref:** `remove-todo-backend`
+- **Affects:** FR-006, FR-011
+
+**Changes:**
+
+- MODIFIED FR-006: the Todo CRUD is removed; `ModuleTemplate` is an empty module skeleton. The Todo feature gets its own PRD.
+- MODIFIED FR-011: tests no longer target the sample feature.
 
 ### v1.0 — Initial Backend Foundation   [Status: Implemented]
 
@@ -60,7 +71,7 @@ The initial backend foundation shall include:
 5. Repository Pattern, Service Layer, and minimal Unit of Work.
 6. Separate `Entities` project.
 7. Feature-based module organization.
-8. One working sample CRUD feature in `ModuleTemplate`.
+8. An empty `ModuleTemplate` module skeleton demonstrating module registration.
 9. Dependency injection and module registration.
 10. FluentValidation, basic exception handling, and Swagger.
 11. Basic unit, integration, and architecture tests.
@@ -123,21 +134,17 @@ The application shall follow this flow:
 - DTO-to-Entity mapping shall be performed manually.
 - Feature-specific components shall be grouped together.
 
-### FR-006 [v1.0] — Reference Module
+### FR-006 [v1.0 → v1.1] — Reference Module
 
-The `ModuleTemplate` project shall contain a working todo items CRUD feature.
+The `ModuleTemplate` project shall be an empty module skeleton that
+demonstrates module registration and the feature-folder convention.
+The Todo reference feature has been removed from this PRD and will be
+specified in its own PRD.
 
-The feature shall support:
-
-- Create Todo.
-- Update Todo.
-- Get Todo by ID.
-- List Todos.
-- Delete Todo.
-
-- use single save method to create and update a TODO
-
-The feature shall demonstrate the standard implementation of controllers, services, repositories, DTOs, validators, entities, and database configuration.
+The Repository, Service, and Unit of Work patterns, and the controller,
+DTO, validator, entity, and database configuration conventions, shall
+remain documented in `kb/architecture/backend.md` as guidance for the
+first business feature.
 
 ### FR-007 [v1.0] — Validation and Error Handling
 
@@ -175,8 +182,8 @@ The application shall use xUnit for automated testing.
 
 Testing shall include:
 
-- Unit tests for the sample feature.
-- Integration tests for API and database operations.
+- Unit tests for the shared infrastructure (for example validation and exception handling).
+- Integration tests for the API pipeline and database connectivity.
 - Architecture tests for project dependency rules.
 
 ### FR-012 [v1.0] — Architecture Documentation
@@ -249,10 +256,10 @@ The Backend Foundation PRD shall be considered complete when:
 - [ ] Oracle database connectivity works.
 - [ ] The shared `AppDbContext` is operational.
 - [ ] Repository, Service, and Unit of Work patterns are implemented.
-- [ ] The Item Master CRUD endpoints work against Oracle.
+- [ ] The Repository, Service, and Unit of Work patterns are documented for the first business feature.
 - [ ] Request validation works using FluentValidation.
 - [ ] Centralized exception handling returns consistent errors.
-- [ ] Swagger displays the sample API endpoints.
+- [ ] Swagger UI is available and lists endpoints as features add them.
 - [ ] Dependency injection and module registration work.
 - [ ] Basic logging and environment configuration work.
 - [ ] Unit and integration tests pass.
@@ -263,7 +270,7 @@ The Backend Foundation PRD shall be considered complete when:
 
 1. Complete ASP.NET Core Web API solution.
 2. Oracle EF Core integration and database configuration.
-3. Working ModuleTemplate with Todo Item CRUD.
+3. `ModuleTemplate` skeleton demonstrating module registration.
 4. Basic automated tests.
 5. Swagger/OpenAPI documentation.
 6. `backend.md`.

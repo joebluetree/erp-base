@@ -1,7 +1,7 @@
-import { Component, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NAV_ICONS, NAV_ITEMS } from '../core/navigation/nav-items';
+import { NAV_ICONS, NAV_MENU } from '../core/navigation/nav-items';
 
 /** The navigation menu. Used in the desktop sidebar and inside the mobile sheet. */
 @Component({
@@ -30,7 +30,7 @@ import { NAV_ICONS, NAV_ITEMS } from '../core/navigation/nav-items';
   `,
 })
 export class AppNav {
-  protected readonly items = NAV_ITEMS;
+  protected readonly items = inject(NAV_MENU);
 
   /** Emitted when the user chooses an entry, so the mobile sheet can close. */
   readonly navigated = output<void>();

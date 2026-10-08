@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
+import { NAV_ITEMS, NAV_MENU } from '../core/navigation/nav-items';
 import { Shell } from './shell';
 
 @Component({ template: '<p id="page-body">Page body</p>' })
@@ -16,13 +17,14 @@ describe('Shell', () => {
   async function render() {
     TestBed.configureTestingModule({
       providers: [
+        { provide: NAV_MENU, useValue: [...NAV_ITEMS, { label: 'Reports', icon: 'lucideHouse', route: '/reports' }] },
         provideRouter([
           {
             path: '',
             component: Shell,
             children: [
               { path: '', pathMatch: 'full', component: PageStub },
-              { path: 'todos', component: PageStub },
+              { path: 'reports', component: PageStub },
             ],
           },
         ]),
@@ -116,12 +118,12 @@ describe('Shell', () => {
     menuButton(el).click();
     await settle(harness);
 
-    (drawerNav()?.querySelector('a[href="/todos"]') as HTMLAnchorElement).click();
+    (drawerNav()?.querySelector('a[href="/reports"]') as HTMLAnchorElement).click();
     await settle(harness);
     await new Promise((resolve) => setTimeout(resolve, 400));
     harness.detectChanges();
 
-    expect(TestBed.inject(Router).url).toBe('/todos');
+    expect(TestBed.inject(Router).url).toBe('/reports');
     expect(drawerNav()).toBeNull();
   });
 

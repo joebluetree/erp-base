@@ -1,4 +1,5 @@
-import { lucideHouse, lucideSquareCheck } from '@ng-icons/lucide';
+import { InjectionToken } from '@angular/core';
+import { lucideHouse } from '@ng-icons/lucide';
 
 /** One entry in the main navigation menu. */
 export interface NavItem {
@@ -10,7 +11,7 @@ export interface NavItem {
 }
 
 /** Icons used by `NAV_ITEMS`. Components that show the items register these with `provideIcons`. */
-export const NAV_ICONS = { lucideHouse, lucideSquareCheck };
+export const NAV_ICONS = { lucideHouse };
 
 /**
  * The single list that drives the sidebar menu and the Dashboard quick links.
@@ -18,5 +19,10 @@ export const NAV_ICONS = { lucideHouse, lucideSquareCheck };
  */
 export const NAV_ITEMS: readonly NavItem[] = [
   { label: 'Dashboard', icon: 'lucideHouse', route: '/' },
-  { label: 'Todos', icon: 'lucideSquareCheck', route: '/todos' },
 ];
+
+/** The menu as injected into components. Defaults to `NAV_ITEMS`; tests can provide a different list. */
+export const NAV_MENU = new InjectionToken<readonly NavItem[]>('NAV_MENU', {
+  providedIn: 'root',
+  factory: () => NAV_ITEMS,
+});

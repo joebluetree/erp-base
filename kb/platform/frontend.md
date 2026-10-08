@@ -4,7 +4,7 @@
   Field                 Value
   --------------------- -----------------------
   **Capability**        `frontend-foundation`
-  **Current Version**   1.2
+  **Current Version**   1.3
   **Status**            Draft
   **Owner**             joyi john
   **Last Updated**      2026-10-07
@@ -29,6 +29,21 @@ separate PRDs.
 ------------------------------------------------------------------------
 
 ## Change History
+
+### v1.3 --- Remove the Todo reference feature [Status: Proposed]
+
+-   **Date:** 2026-10-08
+-   **Change Ref:** `frontend-foundation`
+-   **Affects:** FR-002, FR-006, FR-007, FR-008, FR-009, FR-013, FR-014,
+    FR-015
+
+**Changes:**
+
+-   MODIFIED FR-006: the Todo reference feature is removed; FR-006 now
+    defines the FeatureTemplate conventions only. The Todo feature gets
+    its own PRD.
+-   MODIFIED FR-002, FR-007, FR-008, FR-009, FR-013, FR-014, FR-015 and
+    the acceptance criteria: references to the Todo feature removed.
 
 ### v1.2 --- Roboto application font [Status: Implemented]
 
@@ -87,8 +102,9 @@ separate PRDs.
 Establish the basic Angular frontend framework for the ERP application.
 
 The frontend shall use standalone Angular architecture, Spartan UI, modular
-feature-based organization, and a reference Todo CRUD feature that
-integrates with the backend `ModuleTemplate` Todo API.
+feature-based organization, and shared infrastructure for API access,
+errors and notifications. The first business feature, Todo, is specified
+in its own PRD.
 
 The foundation shall provide reusable architectural conventions for
 future ERP features without implementing unrelated business
@@ -105,7 +121,7 @@ The Frontend Foundation shall include:
 5.  Spartan UI (Tailwind CSS) and Lucide icons.
 6.  Simple Home page.
 7.  Modular and feature-based organization.
-8.  `FeatureTemplate` with Todo CRUD.
+8.  `FeatureTemplate` conventions (documented guidance).
 9.  Backend API integration.
 10. Standard form conventions.
 11. Data-table conventions (Spartan table).
@@ -132,7 +148,7 @@ The Frontend Foundation shall include:
 
 -   Configure Angular Router using standalone routing.
 -   The routing architecture shall support lazy-loaded features.
--   Configure routes for the Home page and Todo reference feature.
+-   Configure a route for the Home page.
 -   Do not implement navigation menus as part of this PRD.
 
 ### FR-003 [v1.0 → v1.2] --- Spartan UI
@@ -167,23 +183,13 @@ The Frontend Foundation shall include:
     `FeatureTemplate`.
 -   Avoid unnecessary abstractions and dependencies.
 
-### FR-006 [v1.0 → v1.1] --- FeatureTemplate and Todo Reference Feature
+### FR-006 [v1.0 → v1.3] --- FeatureTemplate Conventions
 
-Create a `FeatureTemplate` that acts as the reference implementation for
-future Angular business features.
+Define the conventions that future Angular business features follow.
+The Todo reference feature has been removed from this PRD and will be
+specified in its own PRD. No demonstration feature is implemented here.
 
-The `FeatureTemplate` shall contain a Todo feature corresponding to the
-backend `ModuleTemplate` Todo feature.
-
-The Todo feature shall support:
-
--   List Todos.
--   Create Todo.
--   Edit Todo.
--   View Todo where required by the reference workflow.
--   Delete Todo.
-
-The Todo feature shall demonstrate the standard frontend implementation
+The conventions shall describe the standard frontend implementation
 for:
 
 -   Pages.
@@ -200,8 +206,10 @@ for:
 -   State handling.
 -   Tests.
 
-The reference implementation shall remain simple and shall not introduce
-abstractions that are not required by the Todo feature.
+The conventions shall be documented in `kb/architecture/frontend.md`,
+clearly marked as guidance until the first business feature
+demonstrates them. They shall remain simple and shall not introduce
+abstractions that are not required.
 
 ### FR-007 [v1.0] --- API Integration
 
@@ -210,10 +218,7 @@ abstractions that are not required by the Todo feature.
 -   Do not hardcode backend URLs in feature components.
 -   Feature services shall be responsible for communicating with backend
     APIs.
--   The Todo feature shall integrate with the backend `ModuleTemplate`
-    Todo API.
--   API integration conventions established by Todo shall be reusable by
-    future features.
+-   API integration conventions shall be reusable by future features.
 
 ### FR-008 [v1.0 → v1.1] --- Forms and Business Screens
 
@@ -223,15 +228,16 @@ abstractions that are not required by the Todo feature.
 -   Establish consistent Add and Edit behavior.
 -   Display validation messages consistently.
 -   Provide standard Save and Cancel behavior.
--   The Todo feature shall demonstrate the reference form
-    implementation.
+-   The reference form implementation shall be demonstrated by the first
+    business feature (a separate PRD).
 -   Do not create a large generic form framework.
 
 ### FR-009 [v1.0 → v1.1] --- Data Tables
 
 -   Use the Spartan table components as the standard reference for list
     screens.
--   The Todo list shall demonstrate the standard table pattern.
+-   The standard table pattern shall be demonstrated by the first
+    business feature (a separate PRD).
 -   Support appropriate list actions such as Edit and Delete.
 -   Support basic pagination.
 -   Support basic sorting.
@@ -272,8 +278,8 @@ abstractions that are not required by the Todo feature.
 -   Provide a standard notification mechanism using Spartan (Sonner).
 -   Support success, informational, warning, and error feedback where
     appropriate.
--   Todo Create, Update, and Delete operations shall demonstrate user
-    feedback.
+-   Features shall be able to give user feedback on create, update and
+    delete through the notification mechanism.
 -   Provide centralized handling for common HTTP/API errors.
 -   Handle backend validation errors consistently.
 -   Handle network and unexpected API failures.
@@ -283,7 +289,8 @@ abstractions that are not required by the Todo feature.
 ### FR-014 [v1.0] --- Frontend Testing
 
 -   Establish basic frontend testing conventions.
--   Provide tests for the Todo reference feature.
+-   Provide tests for the core infrastructure (error handling and
+    interceptors).
 -   Test important component behavior.
 -   Test feature services where appropriate.
 -   Test form validation behavior.
@@ -304,7 +311,8 @@ It shall document:
 -   Project and folder structure.
 -   Modular and feature-based organization.
 -   Home page.
--   FeatureTemplate and Todo reference feature.
+-   FeatureTemplate conventions (marked as guidance until
+    demonstrated).
 -   Routing strategy.
 -   Spartan UI and Tailwind configuration and usage conventions.
 -   API integration approach.
@@ -384,6 +392,7 @@ and shall be addressed later:
 9.  Advanced end-to-end testing.
 10. External error monitoring.
 11. CI/CD and Deployment Automation.
+12. The Todo feature (its own PRD).
 
 ## Acceptance Criteria
 
@@ -396,18 +405,15 @@ The Frontend Foundation PRD shall be considered complete when:
 -   [ ] Tailwind CSS and Spartan UI are installed and configured.
 -   [ ] A Spartan theme is configured.
 -   [ ] A simple Home page works.
--   [ ] `FeatureTemplate` is created.
--   [ ] Todo CRUD works against the backend Todo API.
--   [ ] Todo demonstrates the standard Reactive Form pattern.
--   [ ] Todo list demonstrates the standard Spartan table pattern.
+-   [ ] `FeatureTemplate` conventions are documented.
 -   [ ] API base URL configuration is implemented.
 -   [ ] Angular Signals and feature-service state conventions are
-    demonstrated where appropriate.
+    documented.
 -   [ ] Basic HTTP interceptor infrastructure is implemented.
 -   [ ] Shared UI components are created only where justified.
 -   [ ] Spartan notifications provide operation feedback.
 -   [ ] Centralized API error handling works.
--   [ ] Basic Todo frontend tests pass.
+-   [ ] Basic frontend tests pass.
 -   [ ] The application builds without errors.
 -   [ ] The application runs successfully.
 -   [ ] Application Shell and Dashboard are not implemented.
@@ -421,10 +427,10 @@ The Frontend Foundation PRD shall be considered complete when:
 2.  Tailwind CSS and Spartan UI configuration.
 3.  Angular Router configuration.
 4.  Simple Home page.
-5.  `FeatureTemplate` with working Todo CRUD.
+5.  `FeatureTemplate` conventions documented.
 6.  Backend API integration.
-7.  Reference Reactive Form implementation.
-8.  Reference Spartan data-table implementation.
+7.  Reactive form convention (documented).
+8.  Spartan data-table convention (documented).
 9.  Angular Signals and feature-service state convention.
 10. Basic HTTP interceptor infrastructure.
 11. Shared UI components where genuinely reusable.
@@ -438,8 +444,8 @@ The Frontend Foundation PRD shall be considered complete when:
 
 Implement the Frontend Foundation first.
 
-Use the Todo feature inside `FeatureTemplate` as the reference
-implementation for future business features.
+The first business feature (specified in its own Todo PRD) becomes the
+reference implementation for future business features.
 
 Keep the architecture simple and incremental.
 

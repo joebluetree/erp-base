@@ -22,26 +22,26 @@ The frontend SHALL be a single Angular application located directly in the `fron
 - **THEN** the build fails
 
 ### Requirement: Routing with lazy-loaded features
-The application SHALL define routes for a Home page and for the Todo reference feature, and features SHALL be loaded on demand. It SHALL NOT include navigation menus, an application shell, a dashboard or route guards.
+The application SHALL define a route for a Home page and SHALL support adding features as routes that are loaded on demand. It SHALL NOT include navigation menus, an application shell, a dashboard or route guards.
 
 #### Scenario: Home route
 - **WHEN** a user opens the application root
 - **THEN** the Home page is shown
 
-#### Scenario: Todo route is lazy
-- **WHEN** the application first loads
-- **THEN** the Todo feature code is not part of the initial download and is fetched when the user navigates to it
-
 #### Scenario: Unknown route
 - **WHEN** a user opens a path that matches no route
 - **THEN** the application redirects to Home
+
+#### Scenario: Feature added on demand
+- **WHEN** a developer adds a feature as a lazy-loaded route
+- **THEN** the feature code is not part of the initial download and is fetched when the user first navigates to it
 
 ### Requirement: Home page
 The Home page SHALL be minimal and SHALL confirm that the frontend loaded successfully.
 
 #### Scenario: Home page content
 - **WHEN** the Home page is displayed
-- **THEN** it shows a short heading that identifies the application and a link to the Todo list
+- **THEN** it shows a short heading that identifies the application and a short confirmation that the frontend is running
 
 ### Requirement: Themed component library
 The application SHALL use the Spartan UI component library, styled with Tailwind CSS and Lucide icons, with one default (light) theme applied globally and a dark variant that the application shell can switch on.
@@ -80,8 +80,12 @@ The application SHALL provide HTTP interceptor infrastructure for common request
 - **THEN** the registered interceptors process it without the feature opting in
 
 ### Requirement: Feature-based organization
-Business functionality SHALL be organized by feature, with a separate `shared` area for reusable UI that contains no feature-specific logic. Shared components SHALL be added only where there is real reuse, and Spartan UI components SHALL be used directly unless a wrapper is justified.
+Business functionality SHALL be organized by feature, with a separate `shared` area for reusable UI that contains no feature-specific logic. Shared components SHALL be added only where there is real reuse, and Spartan UI components SHALL be used directly unless a wrapper is justified. Only the Spartan components that are in use SHALL be present in the project.
 
 #### Scenario: New feature added
-- **WHEN** a developer adds a feature by following the FeatureTemplate conventions
+- **WHEN** a developer adds a feature by following the documented conventions
 - **THEN** no existing feature needs to change, other than adding its route
+
+#### Scenario: No unused UI components
+- **WHEN** the generated Spartan components in the project are listed
+- **THEN** each is used by the application, and a component needed later is generated when its feature is added

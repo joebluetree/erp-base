@@ -25,7 +25,7 @@ backend/
   iErp.Entities              entities only
   iErp.Shared                technical helpers (NotFoundException, problem-details factory)
   iErp.SharedBusiness        reusable business functionality (empty for now)
-  iErp.ModuleTemplate        reference module (Todos feature)
+  iErp.ModuleTemplate        module skeleton (registration entry point, no feature yet)
   iErp.Tests                 unit, integration, architecture tests
 ```
 
@@ -46,17 +46,13 @@ Modules never reference Api or each other. These rules are enforced by `Architec
 
 ## Modules and features
 
-A module is grouped by feature folder. `ModuleTemplate/Todos/` contains everything for the Todo feature:
+A module is grouped by feature folder. `ModuleTemplate` is an empty skeleton: it has no feature yet, only the registration entry point. The first business feature (specified in its own PRD) adds a feature folder, following the conventions below.
 
-- `TodosController`: HTTP only.
-- `ITodoService` / `TodoService`: business logic.
-- `ITodoRepository` / `TodoRepository`: data access.
-- `TodoDtos.cs`: request/response records and manual mapping.
-- `TodoSaveRequestValidator`: FluentValidation rules.
+Each module exposes one registration method (`AddModuleTemplate`), which registers its FluentValidation validators from the module assembly (none yet) and is where services and repositories are registered. `Program.cs` calls it and adds the module assembly as an MVC application part so its controllers are routed.
 
-Each module exposes one registration method (`AddModuleTemplate`). `Program.cs` calls it and adds the module assembly as an MVC application part so its controllers are routed.
+## Patterns (guidance for the first feature)
 
-## Patterns
+The building blocks below exist in code (`Repository<T>`, `IUnitOfWork`, the exception handler, the validation filter). No concrete feature uses them yet; the first business feature proves the full flow.
 
 **Controller.** Binds the request, calls one service method, maps the result to a status code. No validation or business code.
 
@@ -66,27 +62,18 @@ Each module exposes one registration method (`AddModuleTemplate`). `Program.cs` 
 
 **Unit of work.** `IUnitOfWork.SaveChangesAsync` commits staged changes in one database transaction. `ExecuteInTransactionAsync` wraps several operations in an explicit transaction and rolls back on error.
 
-**Single save.** `POST /api/todos` creates when `id` is null (201) and updates when `id` is given (200, or 404 if it does not exist).
-
-**Mapping.** DTO to entity is manual (`TodoMapping`). No mapping library.
+**Mapping.** DTO to entity is manual. No mapping library.
 
 ## API
 
-| Method and route | Result |
-|---|---|
-| `POST /api/todos` | 201 created, 200 updated, 400 invalid, 404 unknown id |
-| `GET /api/todos/{id}` | 200, 404 |
-| `GET /api/todos` | 200 (empty list when none) |
-| `DELETE /api/todos/{id}` | 204, 404 |
-
-Swagger UI is at `/swagger` in every environment except Production.
+The host exposes no business endpoints yet. Controllers return RFC 7807 problem details for errors (see Validation and exception handling). Swagger UI is at `/swagger` in every environment except Production.
 
 ## Database integration
 
 - Oracle through `Oracle.EntityFrameworkCore` 9.x (matches EF Core 9).
 - Entity mappings are Fluent API classes in `iErp.Data/Configurations`, discovered by `AppDbContext`.
 - The target database is Oracle 10.2, which the provider does not officially support. `Oracle10gCompatibilityInterceptor` (registered in `AddData` and the design-time factory) normalizes line endings in provider-generated PL/SQL to LF and rewrites `FETCH FIRST n ROWS ONLY` to a `ROWNUM` wrapper. OFFSET paging is not supported. New features must be verified against 10g.
-- Table and column names are explicit and upper-case (`TODO_ITEMS`, `IS_COMPLETED`).
+- Table and column names are explicit and upper-case (for example `ORDERS`, `IS_ACTIVE`).
 - Guid keys map to `RAW(16)` and are generated in code. Booleans map to `NUMBER(1)` so the schema also works on Oracle versions before 23ai.
 - Connection string: `ConnectionStrings:Default`, from user secrets or `ConnectionStrings__Default`. Startup fails with a clear message when it is missing. No secrets are committed.
 - Migrations live in `iErp.Data/Migrations`. A design-time factory lets `dotnet ef` generate migrations without a database.
@@ -104,10 +91,10 @@ Serilog (console sink) configured from `appsettings`, plus request logging. `app
 
 xUnit, in `iErp.Tests`:
 
-- `Unit/`: `TodoService` (with NSubstitute fakes) and the validator. No database.
-- `Integration/TodoPipelineTests`: real HTTP pipeline with a fake service. Covers routing, validation, error format, Swagger. No database.
-- `Integration/TodoOracleTests`: CRUD round trip against Oracle. Skipped unless `IERP_TEST_ORACLE` holds a connection string for a schema with migrations applied.
-- `Architecture/`: dependency rules.
+- `Unit/`: the Oracle 10g compatibility interceptor. No database.
+- `Integration/PipelineTests`: the real HTTP pipeline through test-only endpoints (`TestSupport/TestEndpointsController`, never part of the shipped API): 404 problem details, 500 without internal details, 400 with errors grouped by field, Swagger. No database.
+- `Integration/OracleConnectivityTests`: connects to Oracle. Skipped unless `IERP_TEST_ORACLE` holds a connection string for a test schema.
+- `Architecture/`: dependency rules, plus a check that the Api and module assemblies do not use test code.
 
 ## Adding a module
 
@@ -119,4 +106,4 @@ xUnit, in `iErp.Tests`:
 
 ## Adding a feature to a module
 
-Create a feature folder with controller, service, repository, DTOs and validator, following `ModuleTemplate/Todos`. Register the service, repository and validator in the module's registration method.
+Create a feature folder with controller, service, repository, DTOs and validator, following the conventions above. Register the service, repository and validator in the module's registration method.

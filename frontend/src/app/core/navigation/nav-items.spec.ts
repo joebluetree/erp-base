@@ -1,11 +1,8 @@
 import { NAV_ICONS, NAV_ITEMS } from './nav-items';
 
 describe('NAV_ITEMS', () => {
-  it('starts with Dashboard and Todos with their destinations', () => {
-    expect(NAV_ITEMS.map((i) => [i.label, i.route])).toEqual([
-      ['Dashboard', '/'],
-      ['Todos', '/todos'],
-    ]);
+  it('starts with the Dashboard and its destination', () => {
+    expect(NAV_ITEMS.map((i) => [i.label, i.route])).toEqual([['Dashboard', '/']]);
   });
 
   it('gives every entry an icon that is registered in NAV_ICONS', () => {

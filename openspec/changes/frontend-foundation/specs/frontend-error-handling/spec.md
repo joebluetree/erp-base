@@ -7,11 +7,15 @@ Defines how the frontend tells users what happened and how it responds to failed
 ## ADDED Requirements
 
 ### Requirement: User notifications
-The application SHALL show transient notifications for success, information, warning and error outcomes in a consistent place and style.
+The application SHALL show transient notifications for success, information, warning and error outcomes in a consistent place and style, through one notification service that features use.
 
 #### Scenario: Success notification
-- **WHEN** a Todo create, update or delete succeeds
-- **THEN** a success notification names the action that happened
+- **WHEN** a feature reports a successful action through the notification service
+- **THEN** a success notification with that message is shown
+
+#### Scenario: Notification kinds
+- **WHEN** a feature reports an information, warning or error outcome
+- **THEN** a notification of that kind is shown in the same place and style
 
 #### Scenario: Notifications dismiss
 - **WHEN** a notification has been visible for a few seconds
@@ -37,15 +41,15 @@ Failed backend calls SHALL be handled in one central place that turns them into 
 - **THEN** the user sees one notification for it, not one from the central handler and another from the feature
 
 ### Requirement: Backend validation errors
-A 400 response that lists field errors SHALL be passed to the calling form so each message appears next to its field, instead of a generic error notification.
+A 400 response that lists field errors SHALL be passed to the caller, keyed by field name, so a form can show each message next to its field, instead of raising a generic error notification.
 
-#### Scenario: Field errors reach the form
+#### Scenario: Field errors reach the caller
 - **WHEN** the backend returns a 400 with an error for the `Title` field
-- **THEN** the form shows that message under the title input
+- **THEN** the caller receives that message under the field name `title`, and no generic error notification is shown
 
-#### Scenario: Backend error with no known field
-- **WHEN** the backend returns a 400 whose field has no matching input
-- **THEN** its message is shown in a notification
+#### Scenario: Bad request without field errors
+- **WHEN** the backend returns a 400 that has no field errors
+- **THEN** the error is reported through the central handling like any other error
 
 ### Requirement: No external monitoring
 The frontend SHALL NOT require any external error-monitoring service.

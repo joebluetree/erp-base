@@ -8,7 +8,7 @@ import {
 } from './api-error';
 
 function failure(status: number, error: unknown = null): HttpErrorResponse {
-  return new HttpErrorResponse({ status, error, statusText: 'internal text', url: '/api/todos' });
+  return new HttpErrorResponse({ status, error, statusText: 'internal text', url: '/api/customers' });
 }
 
 describe('toApiError', () => {

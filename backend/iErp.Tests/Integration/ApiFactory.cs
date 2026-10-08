@@ -1,8 +1,8 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using iErp.ModuleTemplate.Todos;
+using iErp.Tests.TestSupport;
 
 namespace iErp.Tests.Integration;
 
@@ -17,12 +17,15 @@ public sealed class OracleFactAttribute : FactAttribute
     public OracleFactAttribute()
     {
         if (string.IsNullOrWhiteSpace(OracleTest.ConnectionString))
-            Skip = $"Set {OracleTest.EnvVar} to a connection string for an Oracle test schema (migrations applied).";
+            Skip = $"Set {OracleTest.EnvVar} to a connection string for an Oracle test schema.";
     }
 }
 
-/// <summary>Real pipeline; connection string from IERP_TEST_ORACLE, or a placeholder when only a fake service is used.</summary>
-public class ApiFactory(ITodoService? fakeService = null) : WebApplicationFactory<Program>
+/// <summary>
+/// The real pipeline, plus the test-only endpoints. The connection string comes from IERP_TEST_ORACLE,
+/// or a placeholder when no database is needed (nothing connects until a request uses the context).
+/// </summary>
+public class ApiFactory : WebApplicationFactory<Program>
 {
     // Program reads the connection string while building, before ConfigureAppConfiguration applies,
     // so it is supplied through the environment (the same way a deployment would).
@@ -32,11 +35,10 @@ public class ApiFactory(ITodoService? fakeService = null) : WebApplicationFactor
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Testing");
-        if (fakeService is not null)
-            builder.ConfigureServices(s =>
-            {
-                s.RemoveAll<ITodoService>();
-                s.AddSingleton(fakeService);
-            });
+        builder.ConfigureServices(services =>
+        {
+            services.AddControllers().AddApplicationPart(typeof(TestEndpointsController).Assembly);
+            services.AddScoped<IValidator<EchoRequest>, EchoRequestValidator>();
+        });
     }
 }

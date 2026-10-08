@@ -4,7 +4,7 @@
 | Field | Value |
 |---|---|
 | **Capability** | `app-shell` |
-| **Current Version** | 1.2 |
+| **Current Version** | 1.3 |
 | **Status** | Draft |
 | **Owner** | joyi john |
 | **Last Updated** | 2026-10-08 |
@@ -26,6 +26,19 @@ It defines the layout that wraps every screen of the Angular frontend, the navig
 ---
 
 ## Change History
+
+### v1.3 — Remove the Todo dependency   [Status: Proposed]
+
+- **Date:** 2026-10-08
+- **Change Ref:** `app-shell`
+- **Affects:** FR-002, FR-004, FR-005, FR-006 (removed)
+
+**Changes:**
+
+- MODIFIED FR-002: the menu starts with the Dashboard only.
+- MODIFIED FR-004: the Dashboard is a landing page with welcome text and quick links; Todo counts removed.
+- MODIFIED FR-005: reference to existing Todo routes removed.
+- REMOVED FR-006 (Dashboard Data Access Rule): the Dashboard no longer reads Todo data. The ID is not reused.
 
 ### v1.2 — Softer dark-mode text   [Status: Implemented]
 
@@ -78,12 +91,12 @@ The shell shall make it easy to add future ERP modules (Masters, Inventory, Acco
 The Application Shell shall include:
 
 1. A layout with header, sidebar, and content area.
-2. A navigation menu with entries for Dashboard and Todos.
+2. A navigation menu with an entry for the Dashboard.
 3. A menu defined as a static typed list that features extend.
 4. Responsive sidebar behavior.
-5. A Dashboard as the landing page, with Todo summary cards and quick links.
+5. A Dashboard as the landing page, with welcome text and quick links.
 6. Removal of the Home page; the Dashboard replaces it.
-7. A documented exception allowing the Dashboard to read Todo data.
+7. (Removed in v1.3.)
 8. Tests for the shell, menu, and Dashboard.
 9. Light and dark theme with a header switch.
 10. Update of `kb/architecture/frontend.md`.
@@ -100,10 +113,10 @@ The Application Shell shall include:
 - The header shall contain the theme switch described in FR-010.
 - The header shall not contain a user menu until authentication exists.
 
-### FR-002 [v1.0] — Navigation Menu
+### FR-002 [v1.0 → v1.3] — Navigation Menu
 
 - The sidebar shall list the application's navigation entries, each with a label, an icon, and a destination.
-- The initial entries shall be Dashboard and Todos.
+- The initial entry shall be Dashboard; each future module adds its own entry.
 - The menu shall be defined as a single static typed list. Adding an ERP module's entry shall require adding one item to that list and the module's route.
 - The entry for the current page shall be visibly highlighted.
 - Choosing an entry shall navigate to its destination.
@@ -117,30 +130,19 @@ The Application Shell shall include:
 - The overlay shall also be closable without choosing an entry.
 - Collapsing the sidebar to icons on desktop is not required in this version.
 
-### FR-004 [v1.0] — Dashboard
+### FR-004 [v1.0 → v1.3] — Dashboard
 
 - The Dashboard shall be the landing page at the application root.
-- The Dashboard shall show summary cards for Todos: total, open (not completed), and completed.
-- The counts shall come from the existing Todo API list, calculated in the frontend.
-- The Dashboard shall show quick links to the available features (currently Todos).
-- The Dashboard shall show a loading indicator while counts load.
-- If the counts cannot be loaded, the Dashboard shall show a friendly message in place of the cards and the quick links shall still work. The failure shall be reported once, through the existing error handling.
-- The Dashboard shall not show charts, recent-activity lists, or data other than the Todo counts.
+- The Dashboard shall show a heading and a short welcome text.
+- The Dashboard shall show quick links to the available features, built from the navigation menu list and excluding the Dashboard itself. While there are none, the quick-links section shall not be shown.
+- The Dashboard shall not show charts, recent-activity lists, or counts, and shall not call the backend.
 
-### FR-005 [v1.0] — Routing and Home Page
+### FR-005 [v1.0 → v1.3] — Routing and Home Page
 
 - The Dashboard shall replace the Home page. The Home page and its route shall be removed.
 - All feature routes shall be displayed inside the shell.
 - Unknown paths shall redirect to the Dashboard.
-- Existing Todo routes and behavior shall not change.
 - Route guards shall not be introduced.
-
-### FR-006 [v1.0] — Dashboard Data Access Rule
-
-- The frontend rule that a feature shall not import from another feature shall continue to apply.
-- The Dashboard shall be the single documented exception, allowed to use the Todo feature's data access to read the Todo list.
-- The exception shall be recorded in `kb/architecture/frontend.md`.
-- The Dashboard shall not modify Todo data.
 
 ### FR-007 [v1.0] — Testing
 
@@ -194,24 +196,23 @@ The Application Shell shall include:
 4. Breadcrumbs and per-page titles.
 5. Collapse-to-icons sidebar on desktop.
 6. Nested menu groups for ERP areas (added when the modules exist).
-7. Dashboard charts, recent activity, and data beyond Todo counts.
-8. A backend summary endpoint for Dashboard counts.
+7. Dashboard data of any kind (counts, charts, recent activity).
+8. A backend summary endpoint for Dashboard data.
 9. Localization.
 10. A third "follow the system" option and per-user theme preferences stored on the server.
+11. The Todo feature (its own PRD).
 
 ## Acceptance Criteria
 
 The Application Shell PRD shall be considered complete when:
 
 - [ ] Every page is shown inside the header, sidebar, and content layout.
-- [ ] The menu lists Dashboard and Todos from one static list.
+- [ ] The menu lists the Dashboard from one static list.
 - [ ] The current page's menu entry is highlighted.
 - [ ] At 768 pixels and wider the sidebar is visible; below it, the header button opens and closes it as an overlay.
-- [ ] The Dashboard is the landing page and shows Todo total, open, and completed counts.
-- [ ] The Dashboard shows a loading indicator and a friendly message when counts fail to load.
-- [ ] Dashboard quick links navigate to Todos.
+- [ ] The Dashboard is the landing page and shows a heading and welcome text.
+- [ ] The Dashboard sends no backend requests, and shows quick links only for menu entries beyond itself.
 - [ ] The Home page is removed and unknown paths redirect to the Dashboard.
-- [ ] Todo list, create, edit, and delete still work inside the shell.
 - [ ] The header switch changes between light and dark, and the choice is remembered.
 - [ ] On a first visit the operating system's preference is used, with no flash of the other theme.
 - [ ] Every screen and component is readable in both themes.
@@ -224,9 +225,9 @@ The Application Shell PRD shall be considered complete when:
 ## Expected Deliverables
 
 1. Shell layout with header and sidebar.
-2. Static navigation menu list with Dashboard and Todos entries
+2. Static navigation menu list with the Dashboard entry
 3. Responsive sidebar behavior.
-4. Dashboard with Todo summary cards and quick links.
+4. Dashboard with welcome text and quick links.
 5. Updated routes with the Home page removed.
 6. Tests for the shell, menu, and Dashboard.
 7. Updated `kb/architecture/frontend.md`.
@@ -234,7 +235,7 @@ The Application Shell PRD shall be considered complete when:
 
 ## Implementation Strategy
 
-Add the shell to the existing frontend without disturbing the Todo reference feature.
+Add the shell to the existing frontend without disturbing existing features.
 
 Keep the menu a plain list so that future modules extend it with one entry each.
 
