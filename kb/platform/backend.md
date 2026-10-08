@@ -28,6 +28,18 @@ everything else here already exists.
 ---
 ## Change History
 
+### v1.0 — Initial Backend Foundation   [Status: Implemented]
+
+- **Date:** 2026-10-06
+- **Change Ref:** `backend-foundation`
+- **Affects:** FR-001 – FR-012 
+
+**Changes:**
+
+- ADDED Functions Requirements  FR-001 – FR-012
+
+---
+
 ### v1.1 — Remove the Todo reference feature   [Status: Proposed]
 
 - **Date:** 2026-10-08
@@ -38,16 +50,6 @@ everything else here already exists.
 
 - MODIFIED FR-006: the Todo CRUD is removed; `ModuleTemplate` is an empty module skeleton. The Todo feature gets its own PRD.
 - MODIFIED FR-011: tests no longer target the sample feature.
-
-### v1.0 — Initial Backend Foundation   [Status: Implemented]
-
-- **Date:** 2026-10-06
-- **Change Ref:** `backend-foundation`
-- **Affects:** FR-001 – FR-012 
-
-**Changes:**
-
-- ADDED Functions Requirements  FR-001 – FR-012 
 
 ---
 

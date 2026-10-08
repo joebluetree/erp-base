@@ -28,15 +28,15 @@
 ## 5. Documentation and verification
 
 - [x] 5.1 Update `kb/architecture/frontend.md` (structure, routing, shell, menu and how to add an entry, responsive behavior, Dashboard and its exception, Home removed, boundary rule)
-- [ ] 5.2 Run the app, check the layout at wide and narrow widths, and walk the PRD acceptance checklist, noting anything that could not be verified
-- [ ] 5.3 After `frontend-foundation` is archived, add the delta for `frontend-app-foundation` (Home page, routing, feature-organization requirements) so its specs match this change before this one is archived
+- [x] 5.2 Run the app, check the layout at wide and narrow widths, and walk the PRD acceptance checklist, noting anything that could not be verified
+- [x] 5.3 After `frontend-foundation` is archived, add the delta for `frontend-app-foundation` (Home page, routing, feature-organization requirements) so its specs match this change before this one is archived
 
 ## 6. Light and dark theme
 
 - [x] 6.1 Add `core/theme/theme.service.ts`: `theme` signal, `toggle()`, stored-else-system-else-light initial value, `dark` class and `color-scheme` on `<html>`, storage access inside try/catch
 - [x] 6.2 Add the inline script to `index.html` that applies the same decision before the app starts
 - [x] 6.3 Add the header icon button to `Shell` (moon/sun, accessible name that states the action) wired to the service
-- [ ] 6.4 Confirm Tailwind's `dark:` variant follows the `.dark` class, and check the table, form, cards, alert dialog, sheet and toaster in dark mode; fix any that stay light
+- [x] 6.4 Confirm Tailwind's `dark:` variant follows the `.dark` class, and check the table, form, cards, alert dialog, sheet and toaster in dark mode; fix any that stay light
 - [x] 6.5 Tests: service (initial from storage, from system, default light, toggle, persistence, storage failure, class on `<html>`) and `Shell` (button present with accessible name, click toggles theme, icon and name change)
 - [x] 6.6 Run the full suite and the production build; update `kb/architecture/frontend.md` and `frontend/README.md` for the theme
 - [x] 6.7 Soften the dark-mode text color tokens in `styles.css` (near-white `0.985` to `0.87`), confirm at least 4.5:1 contrast with the dark background, leave light mode unchanged, and rebuild

@@ -32,7 +32,7 @@ Assumptions:
 - `app-dashboard`: the Dashboard landing page with welcome text and quick links built from the menu list.
 
 ### Modified Capabilities
-<!-- None yet. `frontend-app-foundation` (Home page, routing, feature organization) is still in the unarchived frontend-foundation change; its delta is added after that change is archived. -->
+- `frontend-app-foundation`: the "Routing with lazy-loaded features" and "Home page" requirements are removed (the shell and Dashboard replace them) and a smaller "Lazy-loaded features" requirement is added.
 
 ## Impact
 

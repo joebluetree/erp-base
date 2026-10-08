@@ -11,7 +11,7 @@ The API SHALL expose RESTful endpoints with consistent route naming and appropri
 
 #### Scenario: Swagger lists endpoints
 - **WHEN** a developer opens the Swagger UI in Development
-- **THEN** all Todo endpoints are listed with request and response shapes
+- **THEN** the documentation is served and lists every endpoint the application exposes, with request and response shapes
 
 #### Scenario: Swagger hidden in Production
 - **WHEN** the application runs in the Production environment

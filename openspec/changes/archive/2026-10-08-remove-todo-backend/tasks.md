@@ -19,4 +19,4 @@
 
 ## 4. Database (needs separate confirmation)
 
-- [ ] 4.1 With the user's confirmation, apply `RemoveTodoItems` to the Oracle schema and confirm the table is gone
+- [x] 4.1 Apply `RemoveTodoItems` to the Oracle schema and confirm the table is gone (checked 2026-10-08: `TODO_ITEMS` and the migration history table were already absent from ICARDATA, so nothing needed dropping; any database that still has the table gets it dropped by `dotnet ef database update`)

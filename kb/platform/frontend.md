@@ -5,7 +5,7 @@
   --------------------- -----------------------
   **Capability**        `frontend-foundation`
   **Current Version**   1.3
-  **Status**            Draft
+  **Status**            Approved
   **Owner**             joyi john
   **Last Updated**      2026-10-07
 
@@ -30,49 +30,6 @@ separate PRDs.
 
 ## Change History
 
-### v1.3 --- Remove the Todo reference feature [Status: Proposed]
-
--   **Date:** 2026-10-08
--   **Change Ref:** `frontend-foundation`
--   **Affects:** FR-002, FR-006, FR-007, FR-008, FR-009, FR-013, FR-014,
-    FR-015
-
-**Changes:**
-
--   MODIFIED FR-006: the Todo reference feature is removed; FR-006 now
-    defines the FeatureTemplate conventions only. The Todo feature gets
-    its own PRD.
--   MODIFIED FR-002, FR-007, FR-008, FR-009, FR-013, FR-014, FR-015 and
-    the acceptance criteria: references to the Todo feature removed.
-
-### v1.2 --- Roboto application font [Status: Implemented]
-
--   **Date:** 2026-10-08
--   **Change Ref:** `frontend-foundation`
--   **Affects:** FR-003
-
-**Changes:**
-
--   MODIFIED FR-003: Roboto is the application font, self-hosted.
-
-### v1.1 --- Replace PrimeNG with Spartan UI [Status: Implemented]
-
--   **Date:** 2026-10-07
--   **Change Ref:** `frontend-foundation`
--   **Affects:** FR-003, FR-006, FR-008, FR-009, FR-012, FR-013, FR-015,
-    NFR-005
-
-**Changes:**
-
--   MODIFIED FR-003: the UI library is Spartan UI (Tailwind CSS v4,
-    Spartan brain primitives, CLI-generated helm components, Lucide
-    icons) instead of PrimeNG and PrimeIcons. PrimeNG 22 requires a
-    PrimeUI license key; Spartan is MIT with no key.
--   MODIFIED FR-006, FR-008, FR-009, FR-012, FR-013, FR-015, NFR-005:
-    references to PrimeNG components replaced by Spartan equivalents.
--   MODIFIED FR-009: Spartan's table is styling only, so pagination,
-    sorting and search are implemented in the feature with signals.
-
 ### v1.0 --- Initial Frontend Foundation [Status: Implemented]
 
 -   **Date:** 2026-10-07
@@ -94,6 +51,55 @@ separate PRDs.
 -   ADDED notifications and centralized error handling.
 -   ADDED basic frontend testing.
 -   ADDED frontend architecture documentation requirement.
+
+------------------------------------------------------------------------
+
+### v1.1 --- Replace PrimeNG with Spartan UI [Status: Implemented]
+
+-   **Date:** 2026-10-07
+-   **Change Ref:** `frontend-foundation`
+-   **Affects:** FR-003, FR-006, FR-008, FR-009, FR-012, FR-013, FR-015,
+    NFR-005
+
+**Changes:**
+
+-   MODIFIED FR-003: the UI library is Spartan UI (Tailwind CSS v4,
+    Spartan brain primitives, CLI-generated helm components, Lucide
+    icons) instead of PrimeNG and PrimeIcons. PrimeNG 22 requires a
+    PrimeUI license key; Spartan is MIT with no key.
+-   MODIFIED FR-006, FR-008, FR-009, FR-012, FR-013, FR-015, NFR-005:
+    references to PrimeNG components replaced by Spartan equivalents.
+-   MODIFIED FR-009: Spartan's table is styling only, so pagination,
+    sorting and search are implemented in the feature with signals.
+
+------------------------------------------------------------------------
+
+### v1.2 --- Roboto application font [Status: Implemented]
+
+-   **Date:** 2026-10-08
+-   **Change Ref:** `frontend-foundation`
+-   **Affects:** FR-003
+
+**Changes:**
+
+-   MODIFIED FR-003: Roboto is the application font, self-hosted.
+
+------------------------------------------------------------------------
+
+### v1.3 --- Remove the Todo reference feature [Status: Proposed]
+
+-   **Date:** 2026-10-08
+-   **Change Ref:** `frontend-foundation`
+-   **Affects:** FR-002, FR-006, FR-007, FR-008, FR-009, FR-013, FR-014,
+    FR-015
+
+**Changes:**
+
+-   MODIFIED FR-006: the Todo reference feature is removed; FR-006 now
+    defines the FeatureTemplate conventions only. The Todo feature gets
+    its own PRD.
+-   MODIFIED FR-002, FR-007, FR-008, FR-009, FR-013, FR-014, FR-015 and
+    the acceptance criteria: references to the Todo feature removed.
 
 ------------------------------------------------------------------------
 

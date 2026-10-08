@@ -1,10 +1,10 @@
 # Business Requirement Specification
-## <title>
+## Customer Master
 
 | Field | Value |
 |---|---|
-| **Domain** | <module> |
-| **Capability** | <title> |
+| **Domain** | Masters |
+| **Capability** | Customer Master |
 | **Current Version** | 1.2 |
 | **Status** | Approved |
 | **Owner** | TBD |
@@ -12,7 +12,7 @@
 
 ## Document Use
 
-This document is the business source of truth for <title>. It
+This document is the business source of truth for Customer Master. It
 describes current behaviour plus any entry marked `[Status: Proposed]`.
 A propose command should name the version or BR IDs to implement;
 everything else here already exists.
@@ -47,18 +47,18 @@ information, and active status.
 
 ## Change History
 
-### v1.2 — Added Credit Days   [Status: Implemented]
+### v1.0 — Initial Customer Master   [Status: Implemented]
 
-- **Date:** 2026-10-05
-- **Change Ref:** `master-customer-credit-days`
-- **Affects:** BR-004, CUSTOMER, Customer List, Customer Form
+- **Date:** 2026-08-01
+- **Change Ref:** `master-customer-crud`
+- **Affects:** BR-001 – BR-003, BR-005 – BR-007, all tables, all screens
 
 **Changes:**
 
-- ADDED BR-004.2: Credit Days range 0–365.
-- ADDED BR-004.S2, BR-004.S3: Credit Days range scenarios.
-- ADDED column `CUSTOMER.CREDIT_DAYS`.
-- ADDED Credit Days to Customer List and Customer Form.
+- ADDED customer create, modify, view, search.
+- ADDED customer activation and deactivation.
+- ADDED customer addresses and contacts.
+- ADDED Customer List, Customer Form, Customer View.
 
 ---
 
@@ -77,20 +77,21 @@ information, and active status.
 
 ---
 
-### v1.0 — Initial Customer Master   [Status: Implemented]
+### v1.2 — Added Credit Days   [Status: Implemented]
 
-- **Date:** 2026-08-01
-- **Change Ref:** `master-customer-crud`
-- **Affects:** BR-001 – BR-003, BR-005 – BR-007, all tables, all screens
+- **Date:** 2026-10-05
+- **Change Ref:** `master-customer-credit-days`
+- **Affects:** BR-004, CUSTOMER, Customer List, Customer Form
 
 **Changes:**
 
-- ADDED customer create, modify, view, search.
-- ADDED customer activation and deactivation.
-- ADDED customer addresses and contacts.
-- ADDED Customer List, Customer Form, Customer View.
+- ADDED BR-004.2: Credit Days range 0–365.
+- ADDED BR-004.S2, BR-004.S3: Credit Days range scenarios.
+- ADDED column `CUSTOMER.CREDIT_DAYS`.
+- ADDED Credit Days to Customer List and Customer Form.
 
 ---
+
 
 ## Scope
 

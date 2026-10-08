@@ -5,7 +5,7 @@
 |---|---|
 | **Capability** | `app-shell` |
 | **Current Version** | 1.3 |
-| **Status** | Draft |
+| **Status** | Approved |
 | **Owner** | joyi john |
 | **Last Updated** | 2026-10-08 |
 
@@ -27,41 +27,6 @@ It defines the layout that wraps every screen of the Angular frontend, the navig
 
 ## Change History
 
-### v1.3 — Remove the Todo dependency   [Status: Proposed]
-
-- **Date:** 2026-10-08
-- **Change Ref:** `app-shell`
-- **Affects:** FR-002, FR-004, FR-005, FR-006 (removed)
-
-**Changes:**
-
-- MODIFIED FR-002: the menu starts with the Dashboard only.
-- MODIFIED FR-004: the Dashboard is a landing page with welcome text and quick links; Todo counts removed.
-- MODIFIED FR-005: reference to existing Todo routes removed.
-- REMOVED FR-006 (Dashboard Data Access Rule): the Dashboard no longer reads Todo data. The ID is not reused.
-
-### v1.2 — Softer dark-mode text   [Status: Implemented]
-
-- **Date:** 2026-10-08
-- **Change Ref:** `app-shell`
-- **Affects:** FR-010
-
-**Changes:**
-
-- MODIFIED FR-010: dark-mode text is softened instead of near-white.
-
-### v1.1 — Light and dark theme   [Status: Implemented]
-
-- **Date:** 2026-10-08
-- **Change Ref:** `app-shell`
-- **Affects:** FR-001, FR-010
-
-**Changes:**
-
-- MODIFIED FR-001: the header contains a theme switch.
-- ADDED FR-010: light and dark theme with a header switch.
-- Theme switching removed from Out of Scope.
-
 ### v1.0 — Initial Application Shell   [Status: Proposed]
 
 - **Date:** 2026-10-07
@@ -77,6 +42,47 @@ It defines the layout that wraps every screen of the Angular frontend, the navig
 - ADDED Replacement of the Home page by the Dashboard.
 - ADDED Dashboard exception to the cross-feature import rule.
 - ADDED Tests and architecture documentation update.
+
+---
+
+### v1.1 — Light and dark theme   [Status: Implemented]
+
+- **Date:** 2026-10-08
+- **Change Ref:** `app-shell`
+- **Affects:** FR-001, FR-010
+
+**Changes:**
+
+- MODIFIED FR-001: the header contains a theme switch.
+- ADDED FR-010: light and dark theme with a header switch.
+- Theme switching removed from Out of Scope.
+
+---
+
+### v1.2 — Softer dark-mode text   [Status: Implemented]
+
+- **Date:** 2026-10-08
+- **Change Ref:** `app-shell`
+- **Affects:** FR-010
+
+**Changes:**
+
+- MODIFIED FR-010: dark-mode text is softened instead of near-white.
+
+---
+
+### v1.3 — Remove the Todo dependency   [Status: Proposed]
+
+- **Date:** 2026-10-08
+- **Change Ref:** `app-shell`
+- **Affects:** FR-002, FR-004, FR-005, FR-006 (removed)
+
+**Changes:**
+
+- MODIFIED FR-002: the menu starts with the Dashboard only.
+- MODIFIED FR-004: the Dashboard is a landing page with welcome text and quick links; Todo counts removed.
+- MODIFIED FR-005: reference to existing Todo routes removed.
+- REMOVED FR-006 (Dashboard Data Access Rule): the Dashboard no longer reads Todo data. The ID is not reused.
 
 ---
 
