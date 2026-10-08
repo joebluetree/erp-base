@@ -1,0 +1,46 @@
+<div class="flex min-h-screen flex-col">
+  <header class="flex h-14 items-center gap-2 border-b px-4">
+    <button
+      hlmBtn
+      variant="ghost"
+      size="icon"
+      class="md:hidden"
+      type="button"
+      aria-label="Open menu"
+      (click)="menuOpen.set(true)"
+    >
+      <ng-icon name="lucideMenu" />
+    </button>
+    <span class="text-xl font-bold">iErp</span>
+    <button
+      hlmBtn
+      variant="ghost"
+      size="icon"
+      class="ml-auto"
+      type="button"
+      [attr.aria-label]="themeLabel()"
+      (click)="toggleTheme()"
+    >
+      <ng-icon [name]="themeIcon()" aria-hidden="true" />
+    </button>
+  </header>
+
+  <div class="flex flex-1">
+    <aside class="hidden w-56 flex-none border-r md:block">
+      <app-nav />
+    </aside>
+
+    <main class="page mx-auto w-full min-w-0 max-w-5xl flex-1 p-6">
+      <router-outlet />
+    </main>
+  </div>
+</div>
+
+<hlm-sheet side="left" [state]="menuOpen() ? 'open' : 'closed'" (stateChanged)="menuOpen.set($event === 'open')">
+  <hlm-sheet-content *hlmSheetPortal="let ctx">
+    <hlm-sheet-header>
+      <h3 hlmSheetTitle>Menu</h3>
+    </hlm-sheet-header>
+    <app-nav (navigated)="menuOpen.set(false)" />
+  </hlm-sheet-content>
+</hlm-sheet>

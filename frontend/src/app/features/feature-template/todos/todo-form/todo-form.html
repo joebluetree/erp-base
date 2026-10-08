@@ -1,0 +1,29 @@
+<h1 class="mb-4 text-2xl font-semibold">{{ id ? 'Edit todo' : 'New todo' }}</h1>
+
+<form [formGroup]="form" (ngSubmit)="save()" novalidate class="grid max-w-lg gap-4">
+  <div class="grid gap-1.5">
+    <label hlmLabel for="title">Title</label>
+    <input hlmInput id="title" formControlName="title" [attr.aria-invalid]="!!errorFor('title')" />
+    @if (errorFor('title'); as message) {
+      <small class="field-error text-sm text-destructive" role="alert">{{ message }}</small>
+    }
+  </div>
+
+  <div class="grid gap-1.5">
+    <label hlmLabel for="description">Description</label>
+    <textarea hlmTextarea id="description" rows="4" formControlName="description"></textarea>
+    @if (errorFor('description'); as message) {
+      <small class="field-error text-sm text-destructive" role="alert">{{ message }}</small>
+    }
+  </div>
+
+  <div class="flex items-center gap-2">
+    <hlm-checkbox inputId="isCompleted" formControlName="isCompleted" />
+    <label hlmLabel for="isCompleted">Completed</label>
+  </div>
+
+  <div class="flex gap-2">
+    <button hlmBtn type="submit" [disabled]="saving()">Save</button>
+    <a hlmBtn variant="secondary" routerLink="/todos">Cancel</a>
+  </div>
+</form>
