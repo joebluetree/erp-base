@@ -75,7 +75,7 @@ The host exposes no business endpoints yet. Controllers return RFC 7807 problem 
 - The target database is Oracle 10.2, which the provider does not officially support. `Oracle10gCompatibilityInterceptor` (registered in `AddData` and the design-time factory) normalizes line endings in provider-generated PL/SQL to LF and rewrites `FETCH FIRST n ROWS ONLY` to a `ROWNUM` wrapper. OFFSET paging is not supported. New features must be verified against 10g.
 - Table and column names are explicit and upper-case (for example `ORDERS`, `IS_ACTIVE`).
 - Guid keys map to `RAW(16)` and are generated in code. Booleans map to `NUMBER(1)` so the schema also works on Oracle versions before 23ai.
-- Connection string: `ConnectionStrings:Default`, from user secrets or `ConnectionStrings__Default`. Startup fails with a clear message when it is missing. No secrets are committed.
+- Connection string: `ConnectionStrings:Default`, from (lowest to highest priority) `appsettings*.json`, the optional Git-ignored `appsettings.{Environment}.local.json` (copy `appsettings.Development.local.example.json`), user secrets, and the `ConnectionStrings__Default` environment variable, which always wins. Startup fails with a clear message when it is missing. No secrets are committed.
 - Migrations live in `iErp.Data/Migrations`. A design-time factory lets `dotnet ef` generate migrations without a database.
 
 ## Validation and exception handling

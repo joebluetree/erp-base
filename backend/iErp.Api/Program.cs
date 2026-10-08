@@ -5,6 +5,12 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Optional machine-local settings (for example the Oracle connection string). The file is Git-ignored
+// (appsettings.*.local.json). Environment variables are added again afterwards so they still win.
+builder.Configuration
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.local.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
 builder.Host.UseSerilog((context, services, logger) => logger
     .ReadFrom.Configuration(context.Configuration)
     .ReadFrom.Services(services)
